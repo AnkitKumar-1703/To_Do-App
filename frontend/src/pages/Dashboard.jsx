@@ -29,7 +29,7 @@ const Dashboard = () => {
     const config = {
       method: "get",
       maxBodyLength: Infinity,
-      url: "http://localhost:3000/todo/showtodos",
+      url: `${import.meta.env.VITE_BACKEND_URL}/todo/showtodos`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -64,7 +64,7 @@ const Dashboard = () => {
       const config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "http://localhost:3000/todo/create",
+        url: `${import.meta.env.VITE_BACKEND_URL}/todo/create`,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const Dashboard = () => {
       const config = {
         method: "patch", // Use PATCH for update
         maxBodyLength: Infinity,
-        url: `http://localhost:3000/todo/update?todoId=${taskId}`, // Only todoId in query parameter
+        url: `${import.meta.env.VITE_BACKEND_URL}/todo/update?todoId=${taskId}`, // Only todoId in query parameter
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json", // Send the data in the body
@@ -118,7 +118,7 @@ const Dashboard = () => {
     const config = {
       method: "patch",
       maxBodyLength: Infinity,
-      url: `http://localhost:3000/todo/marktrue?todoId=${todoId}`,
+      url: `${import.meta.env.VITE_BACKEND_URL}/todo/marktrue?todoId=${todoId}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -141,7 +141,7 @@ const Dashboard = () => {
     const config = {
       method: "delete",
       maxBodyLength: Infinity,
-      url: `http://localhost:3000/todo/delete?todoId=${todoId}`,
+      url: `${import.meta.env.VITE_BACKEND_URL}/todo/delete?todoId=${todoId}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
