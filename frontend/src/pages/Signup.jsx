@@ -18,7 +18,7 @@ const SignUp = () => {
     setLoader(true);
     console.log("Sign-Up Data:", formData);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`, formData, {
+      const response = await axios.post(`https://to-do-app-mpzr.onrender.com/user/signup`, formData, {
         headers: { "Content-Type": "application/json" },
         maxBodyLength: Infinity,
       });
@@ -38,7 +38,7 @@ const SignUp = () => {
     setLoader(true);
     try {
       const guestCredentials = { email: "guest@example.com", password: "guest123" };
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signin`, guestCredentials, {
+      const response = await axios.post(`https://to-do-app-mpzr.onrender.com/user/signin`, guestCredentials, {
         headers: { "Content-Type": "application/json" },
         maxBodyLength: Infinity,
       });
