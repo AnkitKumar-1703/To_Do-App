@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--custom" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256">
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="todoGradient1" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#41D1FF"></stop>
+      <stop offset="100%" stop-color="#BD34FE"></stop>
+    </linearGradient>
+    <linearGradient id="todoGradient2" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFEA83"></stop>
+      <stop offset="100%" stop-color="#FFA800"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Notepad Background -->
+  <rect x="32" y="32" width="192" height="192" rx="16" ry="16" fill="url(#todoGradient1)"></rect>
+
+  <!-- Checkboxes -->
+  <rect x="48" y="64" width="48" height="48" rx="8" ry="8" fill="url(#todoGradient2)"></rect>
+  <path d="M60 88l8 8 16-16" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <rect x="48" y="144" width="48" height="48" rx="8" ry="8" fill="url(#todoGradient2)"></rect>
+  <path d="M60 168l8 8 16-16" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- Task Lines -->
+  <rect x="120" y="72" width="96" height="16" rx="8" ry="8" fill="white"></rect>
+  <rect x="120" y="152" width="96" height="16" rx="8" ry="8" fill="white"></rect>
+</svg>
