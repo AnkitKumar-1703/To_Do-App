@@ -90,7 +90,7 @@ const Dashboard = () => {
         description: editTask.description,
         isCompleted: editTask.isCompleted, // Optionally include completion status
       };
-  
+
       const config = {
         method: "patch", // Use PATCH for update
         maxBodyLength: Infinity,
@@ -101,7 +101,7 @@ const Dashboard = () => {
         },
         data: data, // Send the title, description, and isCompleted in the body
       };
-  
+
       try {
         const response = await axios.request(config);
         console.log(response.data);
@@ -112,7 +112,6 @@ const Dashboard = () => {
       }
     }
   };
-  
 
   const toggleTaskCompletion = (todoId) => {
     const config = {
@@ -172,12 +171,10 @@ const Dashboard = () => {
       setUserName(capitalizeFirstLetter(storedName)); // Set user's name
       setQuote(quotes[Math.floor(Math.random() * quotes.length)]); // Set a random quote
       fetchTodos();
-    }else{
+    } else {
       alert("You need to sign in");
-      navigate("/signin")
+      navigate("/signin");
     }
-
-
   }, []);
 
   const sortedTasks = [...tasks].sort((a, b) => {
@@ -186,11 +183,11 @@ const Dashboard = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8 px-4">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8 px-4 relative">
       {/* Logout Button */}
       <button
         onClick={handleLogout}
-        className="absolute top-20 right-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200"
+        className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200 sm:top-2 sm:right-2"
       >
         Logout
       </button>
@@ -249,94 +246,100 @@ const Dashboard = () => {
 
         {/* Task List */}
         <ul className="space-y-6">
-          {sortedTasks.map((task, index) => (
-            <li
-              key={index}
-              className={`flex flex-col p-6 rounded-lg shadow-md border ${
-                task.isCompleted
-                  ? "bg-green-50 border-green-300"
-                  : "bg-white border-gray-300"
-              }`}
-            >
-              <div className="flex justify-between items-center mb-2">
-                <div className="text-lg font-bold text-gray-800">
-                  {editTask && editTask.id === task.id ? (
-                    <input
-                      type="text"
-                      name="title"
-                      value={editTask.title}
-                      onChange={handleEditChange}
-                      className="px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  ) : (
-                    task.title
-                  )}
-                </div>
-                <div className="flex items-center space-x-4">
-                  {editTask && editTask.id === task.id ? (
-                    <button
-                      onClick={() => updateTask(task.id)}
-                      className="px-4 py-2 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
-                    >
-                      Save
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setEditTask(task)}
-                      className="px-4 py-2 rounded-lg bg-yellow-500 text-white font-medium hover:bg-yellow-600"
-                    >
-                      Edit
-                    </button>
-                  )}
-                  <button
-                    onClick={() => toggleTaskCompletion(task.id)}
-                    className={`px-4 py-2 rounded-lg text-white font-medium ${
-                      task.isCompleted
-                        ? "bg-gray-400 hover:bg-gray-500"
-                        : "bg-green-500 hover:bg-green-600"
-                    }`}
-                  >
-                    {task.isCompleted ? "Undo" : "Complete"}
-                  </button>
-                  <button
-                    onClick={() => deleteTask(task.id)}
-                    className="px-4 py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-              <p
-                className={`mb-4 text-sm ${
-                  task.isCompleted
-                    ? "text-gray-500 line-through"
-                    : "text-gray-700"
-                }`}
-              >
-                {editTask && editTask.id === task.id ? (
-                  <textarea
-                    name="description"
-                    value={editTask.description}
-                    onChange={handleEditChange}
-                    className="w-full px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                ) : (
-                  task.description
-                )}
-              </p>
-              <div className="text-sm text-gray-600 border-t pt-3 grid grid-cols-2 gap-4">
-                <div>
-                  <span className="font-semibold">Created:</span>{" "}
-                  {convertToIST(task.createdAt)}
-                </div>
-                <div>
-                  <span className="font-semibold">Last Updated:</span>{" "}
-                  {convertToIST(task.updatedAt)}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+  {sortedTasks.map((task, index) => (
+    <li
+      key={index}
+      className={`flex flex-col p-6 rounded-lg shadow-md border ${
+        task.isCompleted
+          ? "bg-green-50 border-green-300"
+          : "bg-white border-gray-300"
+      }`}
+    >
+      {/* Title */}
+      <div className="text-lg font-bold text-gray-800 mb-2">
+        {editTask && editTask.id === task.id ? (
+          <input
+            type="text"
+            name="title"
+            value={editTask.title}
+            onChange={handleEditChange}
+            className="px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        ) : (
+          task.title
+        )}
+      </div>
+
+      {/* Description */}
+      <p
+        className={`text-sm mb-4 ${
+          task.isCompleted
+            ? "text-gray-500 line-through"
+            : "text-gray-700"
+        }`}
+      >
+        {editTask && editTask.id === task.id ? (
+          <textarea
+            name="description"
+            value={editTask.description}
+            onChange={handleEditChange}
+            className="w-full px-2 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        ) : (
+          task.description
+        )}
+      </p>
+
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-start sm:space-x-4 space-y-2 sm:space-y-0">
+        {editTask && editTask.id === task.id ? (
+          <button
+            onClick={() => updateTask(task.id)}
+            className="px-4 py-2 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+          >
+            Save
+          </button>
+        ) : (
+          <button
+            onClick={() => setEditTask(task)}
+            className="px-4 py-2 rounded-lg bg-yellow-500 text-white font-medium hover:bg-yellow-600"
+          >
+            Edit
+          </button>
+        )}
+        <button
+          onClick={() => toggleTaskCompletion(task.id)}
+          className={`px-4 py-2 rounded-lg text-white font-medium ${
+            task.isCompleted
+              ? "bg-gray-400 hover:bg-gray-500"
+              : "bg-green-500 hover:bg-green-600"
+          }`}
+        >
+          {task.isCompleted ? "Undo" : "Complete"}
+        </button>
+        <button
+          onClick={() => deleteTask(task.id)}
+          className="px-4 py-2 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600"
+        >
+          Delete
+        </button>
+      </div>
+
+      {/* Metadata */}
+      <div className="text-sm text-gray-600 border-t pt-3 grid grid-cols-2 gap-4 mt-4">
+        <div>
+          <span className="font-semibold">Created:</span>{" "}
+          {convertToIST(task.createdAt)}
+        </div>
+        <div>
+          <span className="font-semibold">Last Updated:</span>{" "}
+          {convertToIST(task.updatedAt)}
+        </div>
+      </div>
+    </li>
+  ))}
+</ul>
+
 
         {/* No Tasks Message */}
         {tasks.length === 0 && (
