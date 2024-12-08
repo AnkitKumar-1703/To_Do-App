@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         {/* Footer Links */}
         <div className="text-center md:text-left">
-          <h2 className="text-lg font-bold">To-Do</h2>
+          <h2 className="text-lg font-bold">Taskify</h2>
           <p className="text-sm text-gray-400">
             Simplify your tasks, organize your life.
           </p>
@@ -36,11 +36,13 @@ const Footer = () => {
           </Link>
         </div>
 
-       
+        {/* Social Media and Credits */}
         <div className="text-center md:text-right text-sm text-gray-400">
-          <p>© {new Date().getFullYear()} To-Do. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Taskify. All rights reserved.</p>
+          <p className="mt-1">
+            Built with 🔥 by <span className="font-bold text-white">Ankit Kumar</span>
+          </p>
           <div className="flex justify-center md:justify-end space-x-4 mt-2">
-            
             <a
               href="https://www.linkedin.com/in/ankit-kumar-39704b227/"
               className="hover:text-gray-200 transition duration-200"

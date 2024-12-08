@@ -8,13 +8,13 @@ const LandingPage = () => {
       <div className="text-center px-4">
         {/* Animated Heading */}
         <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-down">
-          Welcome to To-Do
+          Welcome to Taskify
         </h1>
         {/* Subheading */}
         <p className="text-lg md:text-xl mb-6 max-w-2xl mx-auto animate-fade-in-up">
           Simplify your life, increase productivity, and achieve your goals with
           the power of organization. Start managing your tasks today with
-          To-Do!
+          Taskify!
         </p>
 
         {/* Buttons */}
