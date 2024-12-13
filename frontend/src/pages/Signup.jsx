@@ -17,22 +17,31 @@ const SignUp = () => {
     e.preventDefault();
     setLoader(true);
     console.log("Sign-Up Data:", formData);
+
     try {
-      const response = await axios.post(`https://to-do-app-mpzr.onrender.com/user/signup`, formData, {
-        headers: { "Content-Type": "application/json" },
-        maxBodyLength: Infinity,
-      });
-      console.log("Signup Response:", response.data);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("name", response.data.user.name);
-      navigate("/dashboard");
+        const response = await axios.post(`https://to-do-app-mpzr.onrender.com/user/signup`, formData, {
+            headers: { "Content-Type": "application/json" },
+            maxBodyLength: Infinity,
+        });
+        console.log("Signup Response:", response.data);
+
+        // Store user details and navigate to the dashboard
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("name", response.data.user.name);
+        navigate("/dashboard");
     } catch (error) {
-      console.error("Error during signup:", error);
-      alert("Signup failed. Please try again.");
+        console.error("Error during signup:", error);
+
+        // Check for "User already exists" error
+        if (error.response && error.response.status === 409) {
+            alert('User already exists. Please use a different email.');
+        } else {
+            alert(`Signup failed. Please try again. Error: ${error.message}`);
+        }
     } finally {
-      setLoader(false);
+        setLoader(false);
     }
-  };
+};
 
   const handleGuestSignIn = async () => {
     setLoader(true);

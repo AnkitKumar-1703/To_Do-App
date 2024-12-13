@@ -9,34 +9,47 @@ const getJwt = require('../controller/getjwt');
 const { checkPassword } = require('../controller/checkPassword');
 
 
-router.post('/signup',async(req,res)=>{
+router.post('/signup', async (req, res) => {
     try {
-        const body=req.body;
-        const salt=await bcrypt.genSalt(10);
-        const hashedPassword=await bcrypt.hash(body.password,salt);
+        const body = req.body;
+
+        // Check if user already exists
+        const existingUser = await prisma.user.findUnique({
+            where: { email: body.email },
+        });
+
+        if (existingUser) {
+            return res.status(409).json({ message: 'User already exists' }); // 409 Conflict
+        }
+
+        // Hash the password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(body.password, salt);
+
+        // Create new user
         const user = await prisma.user.create({
             data: {
-            name: body.name,
-            email: body.email,
-            password: hashedPassword, 
+                name: body.name,
+                email: body.email,
+                password: hashedPassword,
             },
         });
-        const token =getJwt(user.id);
-        // user.password=null;
+
+        // Generate JWT token
+        const token = getJwt(user.id);
+
         res.status(200).json({
-            "Message":"User Created",
+            message: 'User Created',
             token,
-            user
-        })
+            user,
+        });
     } catch (error) {
-        // console.log(error,"Error Occured");
-        res.status(400).json({
-            message: 'Error Occured may be email already exist'
-          });
-        
-    }   
-    
-})
+        console.error('Error during signup:', error);
+        res.status(500).json({
+            message: 'Internal Server Error',
+        });
+    }
+});
 router.post('/signin',async(req,res)=>{
     try {
         const body=req.body;
